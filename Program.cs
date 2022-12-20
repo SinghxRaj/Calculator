@@ -21,14 +21,12 @@
 
     private static void DisplayExit()
     {
-        // Wait for the user to respond before closing.
         Console.WriteLine("Press any key to close the Calculator console app...");
         Console.ReadKey();
     }
 
     private static void DisplayTitle()
     {
-        // Display title as the c# console calculator app.
         Console.WriteLine("Console Calculator in c#\r");
         Console.WriteLine("-------------------------\n");
     }
@@ -52,7 +50,6 @@
     private static bool ContinueCalculator()
     {
         bool isCalculatorRunning;
-        // See whether user would like to continue.
         Console.WriteLine("Would you like to go again (y or n).");
         string? response = Console.ReadLine();
         isCalculatorRunning = string.IsNullOrEmpty(response) && response![0] == 'y';
@@ -64,15 +61,14 @@
         double num1, num2;
         GetOperands(out num1, out num2);
 
-        // Ask the user to choose an option.
         Console.WriteLine("Choose an option from the following list:");
+
         Console.WriteLine("\t+ - Add");
         Console.WriteLine("\t- - Subtract");
         Console.WriteLine("\t* - Multiple");
         Console.WriteLine("\t/ - Divide");
         Console.WriteLine("Your option?");
 
-        // Use a switch statement to do the math.
         try
         {
             string? op = Console.ReadLine();
@@ -94,14 +90,12 @@
 
     private static void GetOperands(out double num1, out double num2)
     {
-        // Ask the user to type the first number.
         Console.WriteLine("Type a number, and then press Enter");
         while (!double.TryParse(Console.ReadLine(), out num1))
         {
             Console.WriteLine("Invalid input. Must enter a number:");
         }
 
-        // Ask the user to type the second number.
         Console.WriteLine("Type another number, and then press Enter");
         while (!double.TryParse(Console.ReadLine(), out num2))
         {
