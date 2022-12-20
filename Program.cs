@@ -1,4 +1,6 @@
-﻿internal class Program
+﻿using CalculatorLibrary;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
@@ -9,14 +11,15 @@
 
     private static void RunCalculator()
     {
+        var calculator = new Calculator();
         bool continueCalculator = true;
         while (continueCalculator)
         {
-            continueCalculator = SingleCalculation();
+            continueCalculator = SingleCalculation(calculator);
             Console.WriteLine();
         }
 
-        DisplayTotalCalculations();
+        DisplayTotalCalculations(calculator);
     }
 
     private static void DisplayExit()
@@ -31,32 +34,36 @@
         Console.WriteLine("-------------------------\n");
     }
 
-    private static bool SingleCalculation()
+    private static bool SingleCalculation(Calculator calculator)
     {
         bool isCalculatorRunning;
-        AskToViewPreviousCalculations();
-        AskToClearCache();
-        PerformCalculation();
+        AskToViewPreviousCalculations(calculator);
+        AskToClearCache(calculator);
+        PerformCalculation(calculator);
         isCalculatorRunning = ContinueCalculator();
 
         return isCalculatorRunning;
     }
 
-    private static void DisplayTotalCalculations()
+    private static void DisplayTotalCalculations(Calculator calculator)
     {
-        Console.WriteLine($"Total number of operations: {Calculator.TotalOperations}");
+        Console.WriteLine($"Total number of operations: {calculator.TotalOperations}");
     }
 
     private static bool ContinueCalculator()
     {
         bool isCalculatorRunning;
         Console.WriteLine("Would you like to go again (y or n).");
+
         string? response = Console.ReadLine();
-        isCalculatorRunning = string.IsNullOrEmpty(response) && response![0] == 'y';
+        if (string.IsNullOrEmpty(response)) return false;
+        char firstLetterOfResponse = response.ToLower()[0];
+        isCalculatorRunning = firstLetterOfResponse == 'y';
+
         return isCalculatorRunning;
     }
 
-    private static void PerformCalculation()
+    private static void PerformCalculation(Calculator calculator)
     {
         double num1, num2;
         GetOperands(out num1, out num2);
@@ -72,7 +79,7 @@
         try
         {
             string? op = Console.ReadLine();
-            double result = Calculator.DoOperation(num1, num2, op);
+            double result = calculator.DoOperation(num1, num2, op);
             if (double.IsNaN(result))
             {
                 Console.WriteLine("Invalid Operator.");
@@ -103,24 +110,24 @@
         }
     }
 
-    private static void AskToClearCache()
+    private static void AskToClearCache(Calculator calculator)
     {
         Console.WriteLine("Would you like to clear previous calculations (y or n)?");
         string? response = Console.ReadLine();
         if (!string.IsNullOrEmpty(response) && response[0] == 'y')
         {
-            Calculator.ClearCache();
+            calculator.ClearCache();
             Console.WriteLine("Calculator has been cleared.");
         }
     }
 
-    private static void AskToViewPreviousCalculations()
+    private static void AskToViewPreviousCalculations(Calculator calculator)
     {
         Console.WriteLine("Would you like to see previous calculations (y or n)?");
         string? response = Console.ReadLine();
         if (!string.IsNullOrEmpty(response) && response[0] == 'y')
         {
-            string cache = Calculator.ViewCache();
+            string cache = calculator.ViewCache();
             Console.WriteLine("List of previous operations:");
             Console.WriteLine(cache);
         }
