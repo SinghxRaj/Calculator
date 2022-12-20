@@ -18,7 +18,7 @@ internal class Program
             continueCalculator = SingleCalculation(calculator);
             Console.WriteLine();
         }
-
+        calculator.Finish();
         DisplayTotalCalculations(calculator);
     }
 
