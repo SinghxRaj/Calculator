@@ -37,8 +37,11 @@ internal class Program
     private static bool SingleCalculation(Calculator calculator)
     {
         bool isCalculatorRunning;
-        AskToViewPreviousCalculations(calculator);
-        AskToClearCache(calculator);
+        if (calculator.TotalOperations != 0)
+        {
+            AskToViewPreviousCalculations(calculator);
+            AskToClearCache(calculator);
+        }
         PerformCalculation(calculator);
         isCalculatorRunning = ContinueCalculator();
 
@@ -129,6 +132,10 @@ internal class Program
         {
             string cache = calculator.ViewCache();
             Console.WriteLine("List of previous operations:");
+            if (string.IsNullOrEmpty(cache))
+            {
+                cache = "No previous calculations";
+            }
             Console.WriteLine(cache);
         }
     }

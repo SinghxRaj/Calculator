@@ -95,9 +95,10 @@ public class Calculator
     public string ViewCache()
     {
         var sb = new StringBuilder();
-        foreach (var op in CachedOperations)
+        for (int i = 0; i < CachedOperations.Count; i++)
         {
-            sb.AppendLine($"{op.Item1} {op.Item3} {op.Item2} = {op.Item4}");
+            var op = CachedOperations[i];
+            sb.AppendLine($"{op.Item1} {op.Item3} {op.Item2} = {op.Item4} ({i + 1})");
         }
         return sb.ToString();
 
