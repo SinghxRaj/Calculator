@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace CalculatorLibrary;
-public class Calculator 
+public class Calculator
 {
     public int TotalOperations { get; private set; } = 0;
     private List<Tuple<double, double, string?, double>> CachedOperations { get; set; } =
@@ -109,4 +109,8 @@ public class Calculator
         CachedOperations.Clear();
     }
 
+    public double GetPreviousResults(int idx)
+    {
+        return CachedOperations[idx].Item4;
+    }
 }
